@@ -2,33 +2,47 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <!-- 设置文档兼容模式，让浏览器以最新标准渲染页面 -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- 设置视口，确保在不同设备上的适配 -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 页面标题 -->
     <title>Konchok</title>
-    <!-- <link rel="stylesheet" type="text/css" href="css/style.css" /> -->
+    <!-- 内部样式表 -->
     <style>
-        *{
+        /* 全局样式重置，去除默认边距和填充，统一字体 */
+        * {
             padding: 0;
             margin: 0;
             font-family: "楷体";
         }
-        header{
-            background-image:linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url(https://images.pexels.com/photos/1083822/pexels-photo-1083822.jpeg?cs=srgb&dl=pexels-lisa-1083822.jpg&fm=jpg);
+
+        /* 头部区域样式 */
+        header {
+            /* 背景图像与渐变层叠加，高度设为视口高度，背景图片大小覆盖整个区域，居中对齐 */
+            background-image: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url('https://images.pexels.com/photos/1083822/pexels-photo-1083822.jpeg?cs=srgb&dl=pexels-lisa-1083822.jpg&fm=jpg');
             height: 100vh;
             background-size: cover;
             background-position: center;
         }
-    
-        ul{
+
+        /* 导航菜单样式 */
+        ul {
+            /* 浮动至右侧，去除列表项符号，设置外边距 */
             float: right;
             list-style-type: none;
             margin: 15px;
         }
-        ul li{
+
+        /* 列表项样式 */
+        ul li {
+            /* 并列显示列表项 */
             display: inline-block;
         }
-    
-        ul li a{
+
+        /* 链接样式 */
+        ul li a {
+            /* 去除下划线，设置文字颜色，内边距，透明边框，过渡效果，圆角 */
             text-decoration: none;
             color: #fff;
             padding: 5px 20px;
@@ -36,40 +50,60 @@
             transition: .6s ease;
             border-radius: 20px;
         }
-    
-        ul li a:hover{
+
+        /* 鼠标悬停链接时的样式 */
+        ul li a:hover {
+            /* 背景色变为白色，文字颜色变为黑色 */
             background-color: #fff;
             color: #000;
         }
-        ul li.active a{
+
+        /* 当前激活链接的样式 */
+        ul li.active a {
+            /* 背景色变为白色，文字颜色变为黑色 */
             background-color: #fff;
             color: #000;
         }
-        .title{
+
+        /* 标题样式 */
+        .title {
+            /* 绝对定位，垂直水平居中 */
             position: absolute;
-            top:50%;
-            left:50%;
+            top: 50%;
+            left: 50%;
+            /* 居中元素 */
             transform: translate(-50%,-50%);
         }
-        .title h1{
+
+        /* 主标题样式 */
+        .title h1 {
+            /* 文字颜色，字号，字体 */
             color: #fff;
             font-size: 70px;
-            font-family: Century Gothic;
+            font-family: 'Century Gothic';
         }
     </style>
 </head>
 <body>
+    <!-- 页面头部区域 -->
     <header>
+        <!-- 主要容器，包含导航 -->
         <div class="main">
+            <!-- 导航栏 -->
             <ul>
+                <!-- 激活状态的导航项 -->
                 <li class="active"><a href="#">首页</a></li>
+                <!-- 外部链接至百度 -->
                 <li><a href="http://www.baidu.com" target="_blank">百度</a></li>
+                <!-- 外部链接至中华网 -->
                 <li><a href="https://www.china.com" target="_blank">中华网</a></li>
+                <!-- 外部链接至CSDN，带有特殊样式的首字母 -->
                 <li><a href="https://blog.csdn.net" target="_blank"><span style="color: crimson;">C</span>SDN官网</a></li>
-                
             </ul>
         </div>
+        <!-- 中心标题 -->
         <div class="title">
+            <!-- 大标题，带有特殊样式的首字母 -->
             <h1><span style="color: crimson;">My</span> Homepage</h1>
         </div>
     </header>
