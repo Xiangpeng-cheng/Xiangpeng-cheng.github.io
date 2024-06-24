@@ -87,17 +87,20 @@
         @media (max-width: 768px) {
             /* 在窄屏设备上,导航菜单变为堆叠显示 */
             ul {
-                float: none;
-                text-align: center;
+                /* 浮动至右侧，去除列表项符号，设置外边距 */
+                float: right;
+                list-style-type: none;
+                margin: 5px;
             }
             /* 列表项变为块状显示 */
             ul li {
-                display: block;
-                margin-bottom: 10px;
+                display: inline-block;
             }
             /* 减小标题的字号 */
             .title h1 {
                 font-size: 40px;
+                font-size: 70px;
+                font-family: 'Century Gothic';
             }
         }
     </style>
