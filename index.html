@@ -83,23 +83,39 @@
             font-family: 'Century Gothic';
         }
 
-        /* 新增的媒体查询 */
+        /* 媒体查询，针对窄屏设备如手机 */
         @media (max-width: 768px) {
-            /* 在窄屏设备上,导航菜单变为堆叠显示 */
+            /* 在窄屏设备上，导航菜单变为堆叠显示，居中对齐 */
             ul {
-                /* 浮动至右侧，去除列表项符号，设置外边距 */
-                float: right;
-                list-style-type: none;
-                margin: 5px;
+                float: none;
+                text-align: center;
+                margin: 10px 0;
             }
-            /* 列表项变为块状显示 */
+            
+            /* 列表项变为块状显示，增加内边距以便于触摸 */
             ul li {
-                display: inline-block;
+                display: block;
+                padding: 10px 0;
+                width: 100%; /* 占据全部宽度 */
+                box-sizing: border-box; /* 确保padding不会影响实际宽度 */
             }
-            /* 减小标题的字号 */
+            
+            /* 链接样式调整，增加内边距，以便于触摸 */
+            ul li a {
+                padding: 10px 20px;
+                font-size: 18px; /* 调整字体大小，便于阅读 */
+            }
+            
+            /* 减小标题的字号，优化阅读体验 */
             .title h1 {
-                font-size: 40px;
-                font-family: 'Century Gothic';
+                font-size: 40px; /* 只保留一行有效的font-size */
+                line-height: 1.2; /* 改善行间距，提高可读性 */
+            }
+            
+            /* 添加额外的样式，比如背景色或边框，增加视觉层次 */
+            ul li {
+                background-color: rgba(255,255,255,0.1); /* 半透明背景 */
+                border-bottom: 1px solid rgba(255,255,255,0.3); /* 分割线 */
             }
         }
     </style>
