@@ -31,7 +31,7 @@
             /* 浮动至右侧，去除列表项符号，设置外边距 */
             float: right;
             list-style-type: none;
-            margin: 5px;
+            margin: 15px;
         }
 
         /* 列表项样式 */
@@ -97,6 +97,10 @@
                 display: inline-block;
                 font-size: 15px;
                 font-family: 'Century Gothic';
+            }
+            /* 减少除了最后一个列表项之外的其他列表项的右侧外边距 */
+            ul li:not(:last-child) {
+                margin-right: 5px;
             }
             /* 减小标题的字号 */
             .title h1 {
