@@ -1,30 +1,23 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-    <!-- 设置页面编码为UTF-8 -->
-    <meta charset="UTF-8"> 
-    <!-- 设置视口，确保在不同设备上的适配 -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- 设置页面视口宽度与设备宽度相同，初始缩放比例为1.0 -->
-    <title>向鹏程的网站</title> <!-- 设置页面标题为"向鹏程的网站" -->
-    <!-- 内部样式表 -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>向鹏程的网站</title>
     <style>
-        /* 全局样式重置，去除默认边距和填充，统一字体 */
         * {
             padding: 0;
             margin: 0;
-            font-family: "楷体"; /* 设置全局样式：内边距、外边距为0，字体为"楷体" */
+            font-family: "楷体";
         }
-
-        /* 头部区域样式 */
         header {
-            /* 背景图像与渐变层叠加，高度设为视口高度，背景图片大小覆盖整个区域，居中对齐 */
             background-image: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url('https://img3.wallspic.com/crops/2/8/4/7/7/177482/177482-sheng_tai_qu-zi_ran_jing_guan-gao_de-luo_ye_song-ji_yun-1920x1080.jpg');
-            height: 100vh; /* 设置header元素背景图片为渐变色和指定链接的图像，高度为视口高度的100% */
-            background-size: cover; /* 背景图片填充整个容器 */
-            background-position: center; /* 背景图片居中显示 */
+            height: 100vh;
+            background-size: cover;
+            background-position: center;
         }
         .navbar-toggler {
-            display: none; /* 隐藏菜单切换按钮 */
+            display: none;
             background-color: transparent;
             border: none;
             color: white;
@@ -33,82 +26,73 @@
             padding: 10px;
         }
         .responsive-menu {
-            display: none; /* 隐藏响应式菜单 */
+            display: none;
             flex-direction: column;
-            background-color: rgba(0,0,0,0.5); /* 设置背景颜色为半透明黑色 */
-            position: absolute; /* 相对于最近的非static父元素进行绝对定位 */
+            background-color: rgba(0,0,0,0.5);
+            position: absolute;
             top: 0;
             left: 0;
-            width: 100%; /* 宽度为100% */
-            z-index: 1; /* 设置堆叠顺序 */
+            width: 100%;
+            z-index: 1;
         }
         .responsive-menu ul {
-            list-style-type: none; /* 去除列表项标志 */
-            padding: 0; /* 去除内边距 */
+            list-style-type: none;
+            padding: 0;
         }
         .responsive-menu ul li {
-            padding: 15px; /* 设置列表项内边距 */
-            text-align: center; /* 文本居中对齐 */
+            padding: 15px;
+            text-align: center;
         }
         .responsive-menu ul li a {
-            text-decoration: none; /* 去除链接下划线 */
-            color: #fff; /* 链接文本颜色为白色 */
-            display: block; /* 将链接转换为块级元素 */
-            transition: .6s ease; /* 添加过渡效果 */
+            text-decoration: none;
+            color: #fff;
+            display: block;
+            transition: .6s ease;
         }
         .responsive-menu ul li a:hover {
-            background-color: #fff; /* 鼠标悬停时的背景颜色为白色 */
-            color: #000; /* 鼠标悬停时的文本颜色为黑色 */
+            background-color: #fff;
+            color: #000;
         }
         @media (max-width: 768px) {
             .navbar-toggler {
-                display: block; /* 在小屏幕下显示菜单切换按钮 */
+                display: block;
             }
             ul {
-                display: none; /* 在小屏幕下隐藏ul元素 */
+                display: none;
             }
             .responsive-menu {
-                display: flex; /* 在小屏幕下显示响应式菜单 */
+                display: flex;
             }
         }
     </style>
     <script>
-        function toggleMenu() {  //定义toggleMenu函数
-            var menu = document.getElementById("menu"); //获取id为menu的元素
-            if (menu.style.display === "block") {  //如果菜单显示
-                menu.style.display = "none";  //隐藏菜单
+        function toggleMenu() {
+            var menu = document.getElementById("menu");
+            if (menu.style.display === "block") {
+                menu.style.display = "none";
             } else {
-                menu.style.display = "block";  //否则显示菜单
+                menu.style.display = "block";
             }
         }
     </script>
 </head>
 <body>
-    <!-- 页面头部区域 -->
-    <header>
-        <!-- 主要容器，包含导航 -->
-        <div class="main">
-            <!-- 菜单切换按钮，点击触发toggleMenu函数 -->
-            <button class="navbar-toggler" onclick="toggleMenu()">Menu</button> 
-            <!-- 响应式菜单容器 -->
-            <div class="responsive-menu"> 
-                <ul id="menu"> <!-- 列表 -->
-                    <!-- 链接到当前页面的首页 -->
-                    <li class="active"><a href="#">首页</a></li> 
-                    <!-- 链接到bing搜索引擎，新窗口打开 -->
-                    <li><a href="http://www.bing.com" target="_blank">Bing</a></li> 
-                    <!-- 链接到Github官网，新窗口打开 -->
-                    <li><a href="https://github.com/" target="_blank">Github</a></li> 
-                    <!-- 链接到CSDN官网，新窗口打开 -->
-                    <li><a href="https://blog.csdn.net" target="_blank"><span style="color: crimson;">C</span>SDN官网</a></li> 
-                    <!-- 链接到4399小游戏网站，新窗口打开 -->
-                    <li><a href="https://www.4399.com" target="_blank"><span style="color: crimson;">4399</span>小游戏</a></li> 
-                </ul>
-            </div>
+<header>
+    <div class="main">
+        <button class="navbar-toggler" onclick="toggleMenu()">Menu</button>
+        <div class="responsive-menu">
+            <ul id="menu">
+                <li class="active"><a href="#">首页</a></li>
+                <li><a href="http://www.bing.com" target="_blank">Bing</a></li>
+                <li><a href="https://github.com/" target="_blank">Github</a></li>
+                <li><a href="https://blog.csdn.net" target="_blank"><span style="color: crimson;">C</span>SDN官网</a></li>
+                <li><a href="https://www.4399.com" target="_blank"><span style="color: crimson;">4399</span>小游戏</a></li>
+            </ul>
         </div>
-        <div class="title">
-            <h1><span style="color: crimson;">LOVE</span> JQQ</h1> <!-- 网站标题 -->
-        </div>
-    </header>
+    </div>
+    <div class="title">
+        <h1><span style="color: crimson;">LOVE</span> JQQ</h1>
+    </div>
+</header>
 </body>
 </html>
