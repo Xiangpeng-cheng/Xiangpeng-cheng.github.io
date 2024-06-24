@@ -2,97 +2,133 @@
 <html lang="zh">
 <head>
     <meta charset="UTF-8">
+    <!-- 设置文档兼容模式，让浏览器以最新标准渲染页面 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- 设置视口，确保在不同设备上的适配 -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 页面标题 -->
     <title>向鹏程的网站</title>
+    <!-- 内部样式表 -->
     <style>
+        /* 全局样式重置，去除默认边距和填充，统一字体 */
         * {
             padding: 0;
             margin: 0;
             font-family: "楷体";
         }
+
+        /* 头部区域样式 */
         header {
+            /* 背景图像与渐变层叠加，高度设为视口高度，背景图片大小覆盖整个区域，居中对齐 */
             background-image: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url('https://img3.wallspic.com/crops/2/8/4/7/7/177482/177482-sheng_tai_qu-zi_ran_jing_guan-gao_de-luo_ye_song-ji_yun-1920x1080.jpg');
             height: 100vh;
             background-size: cover;
             background-position: center;
         }
-        .navbar-toggler {
-            display: none;
-            background-color: transparent;
-            border: none;
-            color: white;
-            cursor: pointer;
-            font-size: 20px;
-            padding: 10px;
-        }
-        .responsive-menu {
-            display: none;
-            flex-direction: column;
-            background-color: rgba(0,0,0,0.5);
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 1;
-        }
-        .responsive-menu ul {
+
+        /* 导航菜单样式 */
+        ul {
+            /* 浮动至右侧，去除列表项符号，设置外边距 */
+            float: right;
             list-style-type: none;
-            padding: 0;
+            margin: 15px;
         }
-        .responsive-menu ul li {
-            padding: 15px;
-            text-align: center;
+
+        /* 列表项样式 */
+        ul li {
+            /* 并列显示列表项 */
+            display: inline-block;
         }
-        .responsive-menu ul li a {
+
+        /* 链接样式 */
+        ul li a {
+            /* 去除下划线，设置文字颜色，内边距，透明边框，过渡效果，圆角 */
             text-decoration: none;
             color: #fff;
-            display: block;
+            padding: 5px 20px;
+            border: 1px solid transparent;
             transition: .6s ease;
+            border-radius: 20px;
         }
-        .responsive-menu ul li a:hover {
+
+        /* 鼠标悬停链接时的样式 */
+        ul li a:hover {
+            /* 背景色变为白色，文字颜色变为黑色 */
             background-color: #fff;
             color: #000;
         }
+
+        /* 当前激活链接的样式 */
+        ul li.active a {
+            /* 背景色变为白色，文字颜色变为黑色 */
+            background-color: #fff;
+            color: #000;
+        }
+
+        /* 标题样式 */
+        .title {
+            /* 绝对定位，垂直水平居中 */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            /* 居中元素 */
+            transform: translate(-50%,-50%);
+        }
+
+        /* 主标题样式 */
+        .title h1 {
+            /* 文字颜色，字号，字体 */
+            color: #fff;
+            font-size: 70px;
+            font-family: 'Century Gothic';
+        }
+
+        /* 新增的媒体查询 */
         @media (max-width: 768px) {
-            .navbar-toggler {
-                display: block;
-            }
+            /* 在窄屏设备上,导航菜单变为堆叠显示 */
             ul {
-                display: none;
+                /* 浮动至右侧，去除列表项符号，设置外边距 */
+                float: right;
+                list-style-type: none;
+                margin: 5px;
             }
-            .responsive-menu {
-                display: flex;
+            /* 列表项变为块状显示 */
+            ul li {
+                display: inline-block;
+            }
+            /* 减小标题的字号 */
+            .title h1 {
+                font-size: 40px;
+                font-family: 'Century Gothic';
             }
         }
     </style>
-    <script>
-        function toggleMenu() {
-            var menu = document.getElementById("menu");
-            if (menu.style.display === "block") {
-                menu.style.display = "none";
-            } else {
-                menu.style.display = "block";
-            }
-        }
-    </script>
 </head>
 <body>
-<header>
-    <div class="main">
-        <button class="navbar-toggler" onclick="toggleMenu()">Menu</button>
-        <div class="responsive-menu">
-            <ul id="menu">
+    <!-- 页面头部区域 -->
+    <header>
+        <!-- 主要容器，包含导航 -->
+        <div class="main">
+            <!-- 导航栏 -->
+            <ul>
+                <!-- 激活状态的导航项 -->
                 <li class="active"><a href="#">首页</a></li>
+                <!-- 外部链接至百度 --> 
                 <li><a href="http://www.bing.com" target="_blank">Bing</a></li>
+                <!-- 外部链接至github，带有特殊样式的首字母 -->
                 <li><a href="https://github.com/" target="_blank">Github</a></li>
+                <!-- 外部链接至CSDN，带有特殊样式的首字母 -->
                 <li><a href="https://blog.csdn.net" target="_blank"><span style="color: crimson;">C</span>SDN官网</a></li>
-                <li><a href="https://www.4399.com" target="_blank"><span style="color: crimson;">4399</span>小游戏</a></li>
+                <!-- 外部链接至4933，带有特殊样式的首字母 -->
+                <li><a href="https://www.4399.com" target="_blank"><span style="color: crimson;">4399</span>小游戏 </a></li>
             </ul>
         </div>
-    </div>
-    <div class="title">
-        <h1><span style="color: crimson;">LOVE</span> JQQ</h1>
-    </div>
-</header>
+        <!-- 中心标题 -->
+        <div class="title">
+            <!-- 大标题,带有特殊样式的首字母 -->
+            <!-- <h1><span style="color: crimson;">My</span> Homepage</h1> -->
+            <h1><span style="color: crimson;">LOVE</span> JQQ</h1> 
+        </div>
+    </header>
 </body>
 </html>
