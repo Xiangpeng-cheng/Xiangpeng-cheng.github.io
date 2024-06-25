@@ -1,146 +1,65 @@
+<!-- 定义文档类型为HTML5 -->
 <!DOCTYPE html>
+<!-- 设置文档语言为中文 -->
 <html lang="zh">
+
 <head>
+    <!-- 设置字符集为UTF-8，确保网页能正确显示中文等特殊字符 -->
     <meta charset="UTF-8">
-    <!-- 设置文档兼容模式，让浏览器以最新标准渲染页面 -->
+    <!-- 指示IE使用最新的渲染引擎来渲染页面，以获得更好的兼容性 -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!-- 设置视口，确保在不同设备上的适配 -->
+    <!-- 视口设置，使页面在不同设备上自适应显示 -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- 页面标题 -->
+    <!-- 设置网页标题 -->
     <title>向鹏程的网站</title>
-    <!-- 内部样式表 -->
-    <style>
-        /* 全局样式重置，去除默认边距和填充，统一字体 */
-        * {
-            padding: 0;
-            margin: 0;
-            font-family: "楷体";
-        }
-
-        /* 头部区域样式 */
-        header {
-            /* 背景图像与渐变层叠加，高度设为视口高度，背景图片大小覆盖整个区域，居中对齐 */
-            background-image: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url('https://img3.wallspic.com/crops/2/8/4/7/7/177482/177482-sheng_tai_qu-zi_ran_jing_guan-gao_de-luo_ye_song-ji_yun-1920x1080.jpg');
-            height: 100vh;
-            background-size: cover;
-            background-position: center;
-        }
-
-        /* 导航菜单样式 */
-        ul {
-            /* 浮动至右侧，去除列表项符号，设置外边距 */
-            float: right;
-            list-style-type: none;
-            margin: 15px;
-        }
-
-        /* 列表项样式 */
-        ul li {
-            /* 并列显示列表项 */
-            display: inline-block;
-        }
-
-        /* 链接样式 */
-        ul li a {
-            /* 去除下划线，设置文字颜色，内边距，透明边框，过渡效果，圆角 */
-            text-decoration: none;
-            color: #fff;
-            padding: 2px 5px;
-            border: 1px solid transparent;
-            transition: .6s ease;
-            border-radius: 20px;
-        }
-
-        /* 鼠标悬停链接时的样式 */
-        ul li a:hover {
-            /* 背景色变为白色，文字颜色变为黑色 */
-            background-color: #fff;
-            color: #000;
-        }
-
-        /* 当前激活链接的样式 */
-        ul li.active a {
-            /* 背景色变为白色，文字颜色变为黑色 */
-            background-color: #fff;
-            color: #000;
-        }
-
-        /* 标题样式 */
-        .title {
-            /* 绝对定位，垂直水平居中 */
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            /* 居中元素 */
-            transform: translate(-50%,-50%);
-        }
-
-        /* 主标题样式 */
-        .title h1 {
-            /* 文字颜色，字号，字体 */
-            color: #fff;
-            font-size: 70px;
-            font-family: 'Century Gothic';
-        }
-
-        /* 新增的媒体查询 */
-        @media (max-width: 768px) {
-            /* 在窄屏设备上,导航菜单变为堆叠显示 */
-            /* 使列表在窄屏设备上居中 */
-            ul {
-                /* 移除浮动，以便应用居中 */
-                float: none;
-                /* 使用自动左右外边距来居中 */
-                margin: 5px auto;
-                /* 如果需要，可以设置最大宽度以更好地居中 */
-                max-width: 100%;
-                /* 保持其他样式 */
-                list-style-type: none;
-                justify-content: center;
-            }
-            /* 列表项变为块状显示 */
-            ul li {
-                display: inline-block;
-                font-size: 15px;
-                font-family: 'Century Gothic';
-            }
-            /* 减少除了最后一个列表项之外的其他列表项的右侧外边距 */
-            ul li:not(:last-child) {
-                margin-right: 5px;
-            }
-            /* 减小标题的字号 */
-            .title h1 {
-                font-size: 40px;
-                font-family: 'Century Gothic';
-            }
-        }
-    </style>
+    <!-- 引入外部CSS样式表 -->
+    <link rel="stylesheet" href="CSS/styles.css">
 </head>
+
 <body>
-    <!-- 页面头部区域 -->
+    <!-- 页面主体内容开始 -->
     <header>
-        <!-- 主要容器，包含导航 -->
+        <!-- 页面头部区域 -->
         <div class="main">
-            <!-- 导航栏 -->
+            <!-- 容器，用于包裹导航条 -->
             <ul>
+                <!-- 无序列表，构成导航链接 -->
                 <!-- 激活状态的导航项 -->
                 <li class="active"><a href="#">首页</a></li>
-                <!-- 外部链接至百度 --> 
+                <!-- 外部链接至百度 -->
                 <li><a href="http://www.bing.com" target="_blank">Bing</a></li>
-                <!-- 外部链接至github，带有特殊样式的首字母 -->
+                <!-- 外部链接至github -->
                 <li><a href="https://github.com/" target="_blank">Github</a></li>
-                <!-- 外部链接至CSDN，带有特殊样式的首字母 -->
+                <!-- 外部链接至CSDN，特殊样式首字母 -->
                 <li><a href="https://blog.csdn.net" target="_blank"><span style="color: crimson;">C</span>SDN官网</a></li>
-                <!-- 外部链接至4933，带有特殊样式的首字母 -->
-                <li><a href="https://www.4399.com" target="_blank"><span style="color: crimson;">4399</span>小游戏 </a></li>
+                <!-- 外部链接至4399小游戏，特殊样式首字母 -->
+                <li><a href="https://www.4399.com" target="_blank"><span style="color: crimson;">4399</span>小游戏 </a>
+                </li>
             </ul>
         </div>
-        <!-- 中心标题 -->
         <div class="title">
-            <!-- 大标题,带有特殊样式的首字母 -->
-            <!-- <h1><span style="color: crimson;">My</span> Homepage</h1> -->
-            <h1><span style="color: crimson;">LOVE</span> JQQ</h1> 
+            <!-- 页面标题区域 -->
+            <h1><span style="color: crimson;">LOVE</span> JQQ</h1>
+            <!-- 使用特殊颜色强调的标题 -->
         </div>
     </header>
+    <button class="login-button">登录</button>
+    <!-- 登录按钮，触发登录表单展示 -->
+    <div class="login-form" id="loginForm" style="display:none;">
+        <!-- 登录表单，默认隐藏 -->
+        <h3>请输入密码</h3>
+        <!-- 提示信息 -->
+        <input type="password" id="passwordInput" placeholder="密码">
+        <!-- 密码输入框 -->
+        <button onclick="validatePassword()">登录</button>
+        <!-- 登录按钮，点击后执行验证密码函数 -->
+        <button onclick="closeLoginForm()">取消</button>
+        <!-- 取消按钮，点击后关闭登录表单 -->
+    </div>
+    <!-- 引入外部JavaScript文件，用于处理页面交互 -->
+    <script src="JavaScript/scripts.js"></script>
 </body>
+<!-- 页面主体内容结束 -->
+
 </html>
+<!-- HTML文档结束 -->
