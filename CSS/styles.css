@@ -4,6 +4,25 @@ body {
     margin: 0; /* 去除默认边距 */
 }
 
+/* 基础字体大小设置 */
+html {
+    font-size: 15px; /* 设定一个基准字体大小 */
+}
+
+/* 根据屏幕宽度调整字体大小 */
+@media (min-width: 600px) {
+    html {
+        font-size: calc(15px + (24 - 16) * ((100vw - 300px) / (1600 - 300)));
+    }
+}
+
+/* 更多断点可以根据需要添加 */
+@media (min-width: 1200px) {
+    html {
+        font-size: 20px; /* 或者继续使用calc函数调整 */
+    }
+}
+
 /* 头部区域样式 */
 header {
     /* 背景图像与渐变层叠加，高度设为视口高度，背景图片大小覆盖整个区域，居中对齐 */
@@ -149,7 +168,7 @@ ul li.active a {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 400px;
+    width: 200px;
     padding: 20px;
     background-color: white;
     border-radius: 5px;
