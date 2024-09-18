@@ -6,9 +6,9 @@ document.querySelector('.login-button').addEventListener('click', function () {
 // Validate password and handle login
 function validatePassword() {
     var password = document.getElementById('passwordInput').value;
-    if (password === 'xpclovejqq') {
+    if (password === '123456') {
         alert('登录成功！');
-        window.location.href = 'JQQ/送给俱晴晴.html';
+        window.location.href = 'AIXIN/爱心代码.html';
     } else {
         alert('密码错误，请重试。');
     }
