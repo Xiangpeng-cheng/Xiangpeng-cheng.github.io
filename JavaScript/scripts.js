@@ -6,7 +6,7 @@ document.querySelector('.login-button').addEventListener('click', function () {
 // Validate password and handle login
 function validatePassword() {
     var password = document.getElementById('passwordInput').value;
-    if (password === '123456') {
+    if (password === '123123') {
         alert('登录成功！');
         window.location.href = 'AIXIN/爱心代码.html';
     } else {
