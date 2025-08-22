@@ -16,16 +16,6 @@
       overflow: hidden; /* 防止滚动条出现 */
     }
 
-    /* 全屏背景设置 - 关键修改 */
-    body {
-      background: url(https://tc.z.wiki/autoupload/f/Uxy2EtUC6m2VbLhRMYQAP0jAIsLEH3lJeywgge3sYlyyl5f0KlZfm6UsKj-HyTuv/20250822/rUSI/2275X1279/7ac9ac8a7d6b3ef2bc35b3a09798ee18.jpg) no-repeat center center fixed;
-      background-size: cover; /* 关键属性：按比例缩放填满容器 */
-      -webkit-background-size: cover; /* 兼容旧版WebKit浏览器 */
-      -moz-background-size: cover;    /* 兼容旧版Firefox */
-      -o-background-size: cover;      /* 兼容旧版Opera */
-    }
-
-
     /* 画布样式 */
     canvas {
       position: absolute;
@@ -53,7 +43,10 @@
 </HEAD>
 
 <!-- 页面主体，设置背景图片 -->
-<BODY>
+<BODY style="background-image: url（https://tc.z.wiki/autoupload/f/Uxy2EtUC6m2VbLhRMYQAP0jAIsLEH3lJeywgge3sYlyyl5f0KlZfm6UsKj-HyTuv/20250822/rUSI/2275X1279/7ac9ac8a7d6b3ef2bc35b3a09798ee18.jpg）
+  background-size: 100% ;
+  background-attachment: fixed;">
+  
   <!-- 粒子效果画布 -->
   <canvas id="pinkboard"></canvas>
   
@@ -359,6 +352,7 @@
 </BODY>
 
 </HTML>
+
 
 
 
