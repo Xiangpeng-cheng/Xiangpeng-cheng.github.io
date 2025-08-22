@@ -8,156 +8,218 @@
   <META NAME="Keywords" CONTENT="">
   <META NAME="Description" CONTENT="">
   <style>
+    /* 基础样式设置 */
     html,
     body {
       height: 100%;
       padding: 0;
       margin: 0;
       background: #000;
+      display: flex;          /* 使用flex布局实现完美居中 */
+      justify-content: center; /* 水平居中 */
+      align-items: center;     /* 垂直居中 */
     }
 
+    /* 画布样式 */
     canvas {
       position: absolute;
       width: 100%;
       height: 100%;
+      z-index: 0; /* 确保画布在文字层下方 */
     }
   </style>
   <style type="text/css">
+    /* 文字样式 */
     div {
       color: #ea80b0;
       font-size: 5rem;
       font-family: STXingkai;
       text-shadow: 0 0 10px plum, 0 0 20px plum, 0 0 30px plum, 0 0 40px plum;
+      text-align: center; /* 文字水平居中 */
     }
 
+    /* 文字容器样式 */
     .box {
-      position: absolute;
-      top: 50%;
-      left: 44%;
-      -webkit-transform: translateY(-50%);
-      -ms-transform: translateY(-50%);
-      -o-transform: translateY(-50%);
-      transform: translateY(-50%);
+      position: relative; /* 相对定位 */
+      z-index: 1;        /* 确保文字显示在粒子效果上方 */
     }
   </style>
 </HEAD>
 
+<!-- 页面主体，设置背景图片 -->
 <BODY style="background-image: url(https://uy.wzznft.com/i/2025/08/22/ff4nb8.jpg); 
-background-size: 100% ;
-background-attachment: fixed;">
+background-size: cover; /* 背景图覆盖整个页面 */
+background-attachment: fixed;"> <!-- 背景图固定不滚动 -->
+  
+  <!-- 粒子效果画布 -->
   <canvas id="pinkboard"></canvas>
+  
   <script>
     /*
-   * Settings
-   */
+     * 粒子系统设置
+     * length: 粒子最大数量
+     * duration: 粒子存活时间(秒)
+     * velocity: 粒子速度(像素/秒)
+     * effect: 粒子效果参数
+     * size: 粒子大小(像素)
+     */
     var settings = {
       particles: {
-        length: 500, // maximum amount of particles
-        duration: 2, // particle duration in sec
-        velocity: 100, // particle velocity in pixels/sec
-        effect: -0.75, // play with this for a nice effect
-        size: 30, // particle size in pixels
+        length: 500,    // 最大粒子数
+        duration: 2,    // 粒子持续时间(秒)
+        velocity: 100,  // 粒子速度(像素/秒)
+        effect: -0.75,  // 粒子效果参数
+        size: 30,       // 粒子大小(像素)
       },
     };
 
     /*
-     * RequestAnimationFrame polyfill by Erik Möller
+     * RequestAnimationFrame的polyfill
+     * 作者：Erik Möller
+     * 功能：提供跨浏览器的动画帧请求支持
      */
-    (function () { var b = 0; var c = ["ms", "moz", "webkit", "o"]; for (var a = 0; a < c.length && !window.requestAnimationFrame; ++a) { window.requestAnimationFrame = window[c[a] + "RequestAnimationFrame"]; window.cancelAnimationFrame = window[c[a] + "CancelAnimationFrame"] || window[c[a] + "CancelRequestAnimationFrame"] } if (!window.requestAnimationFrame) { window.requestAnimationFrame = function (h, e) { var d = new Date().getTime(); var f = Math.max(0, 16 - (d - b)); var g = window.setTimeout(function () { h(d + f) }, f); b = d + f; return g } } if (!window.cancelAnimationFrame) { window.cancelAnimationFrame = function (d) { clearTimeout(d) } } }());
+    (function () { 
+      var b = 0; 
+      var c = ["ms", "moz", "webkit", "o"]; 
+      for (var a = 0; a < c.length && !window.requestAnimationFrame; ++a) { 
+        window.requestAnimationFrame = window[c[a] + "RequestAnimationFrame"]; 
+        window.cancelAnimationFrame = window[c[a] + "CancelAnimationFrame"] || window[c[a] + "CancelRequestAnimationFrame"] 
+      } 
+      if (!window.requestAnimationFrame) { 
+        window.requestAnimationFrame = function (h, e) { 
+          var d = new Date().getTime(); 
+          var f = Math.max(0, 16 - (d - b)); 
+          var g = window.setTimeout(function () { h(d + f) }, f); 
+          b = d + f; 
+          return g 
+        } 
+      } 
+      if (!window.cancelAnimationFrame) { 
+        window.cancelAnimationFrame = function (d) { 
+          clearTimeout(d) 
+        } 
+      } 
+    }());
 
     /*
-     * Point class
+     * 点(Point)类
+     * 功能：表示二维空间中的点
      */
     var Point = (function () {
+      // 构造函数
       function Point(x, y) {
-        this.x = (typeof x !== 'undefined') ? x : 0;
-        this.y = (typeof y !== 'undefined') ? y : 0;
+        this.x = (typeof x !== 'undefined') ? x : 0; // x坐标
+        this.y = (typeof y !== 'undefined') ? y : 0; // y坐标
       }
+      
+      // 克隆点
       Point.prototype.clone = function () {
         return new Point(this.x, this.y);
       };
+      
+      // 获取/设置向量长度
       Point.prototype.length = function (length) {
         if (typeof length == 'undefined')
-          return Math.sqrt(this.x * this.x + this.y * this.y);
+          return Math.sqrt(this.x * this.x + this.y * this.y); // 计算长度
         this.normalize();
-        this.x *= length;
-        this.y *= length;
+        this.x *= length; // 设置x分量
+        this.y *= length; // 设置y分量
         return this;
       };
+      
+      // 向量归一化
       Point.prototype.normalize = function () {
         var length = this.length();
-        this.x /= length;
-        this.y /= length;
+        this.x /= length; // 归一化x分量
+        this.y /= length; // 归一化y分量
         return this;
       };
       return Point;
     })();
 
     /*
-     * Particle class
+     * 粒子(Particle)类
+     * 功能：表示单个粒子的属性和行为
      */
     var Particle = (function () {
+      // 构造函数
       function Particle() {
-        this.position = new Point();
-        this.velocity = new Point();
-        this.acceleration = new Point();
-        this.age = 0;
+        this.position = new Point(); // 位置
+        this.velocity = new Point(); // 速度
+        this.acceleration = new Point(); // 加速度
+        this.age = 0; // 年龄(存在时间)
       }
+      
+      // 初始化粒子
       Particle.prototype.initialize = function (x, y, dx, dy) {
-        this.position.x = x;
-        this.position.y = y;
-        this.velocity.x = dx;
-        this.velocity.y = dy;
-        this.acceleration.x = dx * settings.particles.effect;
-        this.acceleration.y = dy * settings.particles.effect;
-        this.age = 0;
+        this.position.x = x; // 初始x位置
+        this.position.y = y; // 初始y位置
+        this.velocity.x = dx; // 初始x速度
+        this.velocity.y = dy; // 初始y速度
+        this.acceleration.x = dx * settings.particles.effect; // x加速度
+        this.acceleration.y = dy * settings.particles.effect; // y加速度
+        this.age = 0; // 重置年龄
       };
+      
+      // 更新粒子状态
       Particle.prototype.update = function (deltaTime) {
-        this.position.x += this.velocity.x * deltaTime;
-        this.position.y += this.velocity.y * deltaTime;
-        this.velocity.x += this.acceleration.x * deltaTime;
-        this.velocity.y += this.acceleration.y * deltaTime;
-        this.age += deltaTime;
+        this.position.x += this.velocity.x * deltaTime; // 更新x位置
+        this.position.y += this.velocity.y * deltaTime; // 更新y位置
+        this.velocity.x += this.acceleration.x * deltaTime; // 更新x速度
+        this.velocity.y += this.acceleration.y * deltaTime; // 更新y速度
+        this.age += deltaTime; // 增加年龄
       };
+      
+      // 绘制粒子
       Particle.prototype.draw = function (context, image) {
+        // 缓动函数
         function ease(t) {
           return (--t) * t * t + 1;
         }
+        // 计算粒子大小(随年龄变化)
         var size = image.width * ease(this.age / settings.particles.duration);
+        // 设置透明度(随年龄变化)
         context.globalAlpha = 1 - this.age / settings.particles.duration;
+        // 绘制粒子
         context.drawImage(image, this.position.x - size / 2, this.position.y - size / 2, size, size);
       };
       return Particle;
     })();
 
     /*
-     * ParticlePool class
+     * 粒子池(ParticlePool)类
+     * 功能：管理粒子对象池，提高性能
      */
     var ParticlePool = (function () {
-      var particles,
-        firstActive = 0,
-        firstFree = 0,
-        duration = settings.particles.duration;
+      var particles,    // 粒子数组
+        firstActive = 0, // 第一个活跃粒子索引
+        firstFree = 0,   // 第一个空闲粒子索引
+        duration = settings.particles.duration; // 粒子持续时间
 
+      // 构造函数
       function ParticlePool(length) {
-        // create and populate particle pool
+        // 创建并填充粒子池
         particles = new Array(length);
         for (var i = 0; i < particles.length; i++)
           particles[i] = new Particle();
       }
+      
+      // 添加粒子
       ParticlePool.prototype.add = function (x, y, dx, dy) {
         particles[firstFree].initialize(x, y, dx, dy);
 
-        // handle circular queue
+        // 处理循环队列
         firstFree++;
         if (firstFree == particles.length) firstFree = 0;
         if (firstActive == firstFree) firstActive++;
         if (firstActive == particles.length) firstActive = 0;
       };
+      
+      // 更新所有活跃粒子
       ParticlePool.prototype.update = function (deltaTime) {
         var i;
 
-        // update active particles
+        // 更新活跃粒子
         if (firstActive < firstFree) {
           for (i = firstActive; i < firstFree; i++)
             particles[i].update(deltaTime);
@@ -169,16 +231,16 @@ background-attachment: fixed;">
             particles[i].update(deltaTime);
         }
 
-        // remove inactive particles
+        // 移除不活跃粒子
         while (particles[firstActive].age >= duration && firstActive != firstFree) {
           firstActive++;
           if (firstActive == particles.length) firstActive = 0;
         }
-
-
       };
+      
+      // 绘制所有活跃粒子
       ParticlePool.prototype.draw = function (context, image) {
-        // draw active particles
+        // 绘制活跃粒子
         if (firstActive < firstFree) {
           for (i = firstActive; i < firstFree; i++)
             particles[i].draw(context, image);
@@ -194,102 +256,103 @@ background-attachment: fixed;">
     })();
 
     /*
-     * Putting it all together
+     * 主程序
+     * 功能：初始化并运行动画
      */
     (function (canvas) {
-      var context = canvas.getContext('2d'),
-        particles = new ParticlePool(settings.particles.length),
-        particleRate = settings.particles.length / settings.particles.duration, // particles/sec
-        time;
+      var context = canvas.getContext('2d'), // 获取画布上下文
+        particles = new ParticlePool(settings.particles.length), // 创建粒子池
+        particleRate = settings.particles.length / settings.particles.duration, // 粒子生成速率(个/秒)
+        time; // 时间记录
 
-      // get point on heart with -PI <= t <= PI
+      // 心形曲线函数
       function pointOnHeart(t) {
         return new Point(
-          160 * Math.pow(Math.sin(t), 3),
-          130 * Math.cos(t) - 50 * Math.cos(2 * t) - 20 * Math.cos(3 * t) - 10 * Math.cos(4 * t) + 25
+          160 * Math.pow(Math.sin(t), 3), // x坐标公式
+          130 * Math.cos(t) - 50 * Math.cos(2 * t) - 20 * Math.cos(3 * t) - 10 * Math.cos(4 * t) + 25 // y坐标公式
         );
       }
 
-      // creating the particle image using a dummy canvas
+      // 创建粒子图像(使用临时画布)
       var image = (function () {
-        var canvas = document.createElement('canvas'),
+        var canvas = document.createElement('canvas'), // 创建临时画布
           context = canvas.getContext('2d');
-        canvas.width = settings.particles.size;
-        canvas.height = settings.particles.size;
-        // helper function to create the path
+        canvas.width = settings.particles.size; // 设置画布宽度
+        canvas.height = settings.particles.size; // 设置画布高度
+        
+        // 坐标转换函数
         function to(t) {
           var point = pointOnHeart(t);
           point.x = settings.particles.size / 2 + point.x * settings.particles.size / 350;
           point.y = settings.particles.size / 2 - point.y * settings.particles.size / 350;
           return point;
         }
-        // create the path
+        
+        // 绘制心形路径
         context.beginPath();
         var t = -Math.PI;
         var point = to(t);
         context.moveTo(point.x, point.y);
         while (t < Math.PI) {
-          t += 0.01; // baby steps!
+          t += 0.01; // 小步长绘制平滑曲线
           point = to(t);
           context.lineTo(point.x, point.y);
         }
         context.closePath();
-        // create the fill
-        context.fillStyle = '#ea80b0';
+        
+        // 填充心形
+        context.fillStyle = '#ea80b0'; // 填充颜色
         context.fill();
-        // create the image
+        
+        // 创建图像对象
         var image = new Image();
         image.src = canvas.toDataURL();
         return image;
       })();
 
-      // render that thing!
+      // 渲染函数
       function render() {
-        // next animation frame
+        // 请求下一帧动画
         requestAnimationFrame(render);
 
-        // update time
-        var newTime = new Date().getTime() / 1000,
-          deltaTime = newTime - (time || newTime);
+        // 更新时间
+        var newTime = new Date().getTime() / 1000, // 当前时间(秒)
+          deltaTime = newTime - (time || newTime); // 时间增量
         time = newTime;
 
-        // clear canvas
+        // 清空画布
         context.clearRect(0, 0, canvas.width, canvas.height);
 
-        // create new particles
-        var amount = particleRate * deltaTime;
+        // 创建新粒子
+        var amount = particleRate * deltaTime; // 计算应生成的粒子数
         for (var i = 0; i < amount; i++) {
-          var pos = pointOnHeart(Math.PI - 2 * Math.PI * Math.random());
-          var dir = pos.clone().length(settings.particles.velocity);
-          particles.add(canvas.width / 2 + pos.x, canvas.height / 2 - pos.y, dir.x, -dir.y);
+          var pos = pointOnHeart(Math.PI - 2 * Math.PI * Math.random()); // 随机位置
+          var dir = pos.clone().length(settings.particles.velocity); // 计算方向
+          particles.add(canvas.width / 2 + pos.x, canvas.height / 2 - pos.y, dir.x, -dir.y); // 添加粒子
         }
 
-        // update and draw particles
+        // 更新并绘制粒子
         particles.update(deltaTime);
         particles.draw(context, image);
       }
 
-      // handle (re-)sizing of the canvas
+      // 画布大小调整函数
       function onResize() {
-        canvas.width = canvas.clientWidth;
-        canvas.height = canvas.clientHeight;
+        canvas.width = canvas.clientWidth; // 设置画布宽度
+        canvas.height = canvas.clientHeight; // 设置画布高度
       }
-      window.onresize = onResize;
+      window.onresize = onResize; // 绑定窗口大小改变事件
 
-      // delay rendering bootstrap
+      // 延迟启动渲染(确保DOM加载完成)
       setTimeout(function () {
-        onResize();
-        render();
+        onResize(); // 初始化画布大小
+        render();   // 开始渲染
       }, 10);
-    })(document.getElementById('pinkboard'));
+    })(document.getElementById('pinkboard')); // 传入画布元素
   </script>
+  
+  <!-- 居中显示的文字 -->
   <div class="box">米梦琪</div>
 </BODY>
 
 </HTML>
-
-
-
-
-
-
